@@ -20,7 +20,7 @@ function check_config() {
 }
 check_config "db_host" "$POSTGRESQL_HOST"
 check_config "db_port" "$POSTGRESQL_PORT_NUMBER"
-check_config "db_user" "odoo"
+check_config "db_user" "$POSTGRESQL_USER"
 check_config "db_password" "$POSTGRESQL_PASSWORD"
 
 case "$1" in

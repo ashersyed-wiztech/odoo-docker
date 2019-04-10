@@ -23,6 +23,8 @@ RUN set -x; \
             python3-vobject \
             python3-watchdog \
             xz-utils \
+            zip \
+            unzip \
         && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
         && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
         && dpkg --force-depends -i wkhtmltox.deb\
@@ -58,15 +60,23 @@ RUN set -x;\
 
 # Install Odoo
 ENV ODOO_VERSION 12.0
-ARG ODOO_RELEASE=20190128
+ARG ODOO_RELEASE=20190409
 ARG ODOO_SHA=9e34aaed2eb1e7697aaf36767247dbf335e9fe7a
+
+# RUN set -x; \
+#         curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
+#         && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
+#         && dpkg --force-depends -i odoo.deb \
+#         && apt-get update \
+#         && apt-get -y install -f --no-install-recommends \
+#         && rm -rf /var/lib/apt/lists/* odoo.deb
+
 RUN set -x; \
-        curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
-        && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
-        && dpkg --force-depends -i odoo.deb \
-        && apt-get update \
-        && apt-get -y install -f --no-install-recommends \
-        && rm -rf /var/lib/apt/lists/* odoo.deb
+        curl -sSL http://47.102.156.191/root/odoo/-/jobs/12/artifacts/download -o artifacts.zip \
+	&& unzip artifacts.zip -d artifacts \
+	&& dpkg --force-depends -i artifacts/build/odoo*.deb \
+        && apt-get update && apt-get -y install -f --no-install-recommends \
+        && rm -rf /var/lib/apt/lists/* odoo*.deb
 
 # Copy entrypoint script and Odoo configuration file
 RUN pip3 install num2words xlwt
@@ -87,6 +97,20 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 
 # Set default user when running the container
 USER odoo
+
+ENV ODOO_EMAIL="user@example.com" \
+    ODOO_PASSWORD="bitnami" \
+    POSTGRESQL_HOST="postgresql" \
+    POSTGRESQL_PASSWORD="" \
+    POSTGRESQL_PORT_NUMBER="5432" \
+    POSTGRESQL_USER="postgres" \
+    SMTP_HOST="" \
+    SMTP_PASSWORD="" \
+    SMTP_PORT="" \
+    SMTP_PROTOCOL="" \
+    SMTP_USER=""
+
+EXPOSE 8069 8071
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]

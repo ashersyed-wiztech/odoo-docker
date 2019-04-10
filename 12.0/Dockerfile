@@ -100,10 +100,10 @@ USER odoo
 
 ENV ODOO_EMAIL="user@example.com" \
     ODOO_PASSWORD="bitnami" \
-    POSTGRESQL_HOST="postgresql" \
-    POSTGRESQL_PASSWORD="" \
-    POSTGRESQL_PORT_NUMBER="5432" \
-    POSTGRESQL_USER="postgres" \
+    POSTGRE_HOST="postgresql" \
+    POSTGRE_PASSWORD="" \
+    POSTGRE_PORT_NUMBER="5432" \
+    POSTGRE_USER="postgres" \
     SMTP_HOST="" \
     SMTP_PASSWORD="" \
     SMTP_PORT="" \

@@ -98,18 +98,6 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 # Set default user when running the container
 USER odoo
 
-ENV ODOO_EMAIL="user@example.com" \
-    ODOO_PASSWORD="bitnami" \
-    POSTGRE_HOST="postgresql" \
-    POSTGRE_PASSWORD="" \
-    POSTGRE_PORT_NUMBER="5432" \
-    POSTGRE_USER="postgres" \
-    SMTP_HOST="" \
-    SMTP_PASSWORD="" \
-    SMTP_PORT="" \
-    SMTP_PROTOCOL="" \
-    SMTP_USER=""
-
 EXPOSE 8069 8071
 
 ENTRYPOINT ["/entrypoint.sh"]

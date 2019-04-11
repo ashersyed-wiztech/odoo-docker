@@ -2,8 +2,8 @@
 
 set -x
 
-curl --header "PRIVATE-TOKEN: RRB5Wesw99zMd3sjpxm" 'http://172.19.53.32/api/v4/projects' -o projects.json
-curl --header "PRIVATE-TOKEN: RRB5Wesw99zMd3sjpxm" 'http://172.19.53.32/api/v4/projects/1/jobs?scope[]=success' -o jobs.json
+curl --header "PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm" 'http://172.19.53.32/api/v4/projects' -o projects.json
+curl --header "PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm" 'http://172.19.53.32/api/v4/projects/1/jobs?scope[]=success' -o jobs.json
 
 ARTIFACTS_URL=$(cat jobs.json |  jq '.[0].web_url')
 ARTIFACTS_URL=${ARTIFACTS_URL//\"/}

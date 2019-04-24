@@ -1,6 +1,6 @@
 stages:
   - build
-    
+  - deploy    
 job:
   stage: build
   before_script:
@@ -9,3 +9,7 @@ job:
     - "bash ./publish-odoo-image.sh"
   after_script:
     - echo $(date +"%Y%m%d%H%M")
+trigger_build:
+  stage: deploy
+  script:
+    - curl -X POST -F token=2c6429b3995127e02910d5e9ffe399 -F "ref=master" -F "variables[DEPLOY_ODOO]=true" http://47.102.156.191/api/v4/projects/3/trigger/pipeline

@@ -39,6 +39,6 @@ case "$1" in
         exec "$@"
 esac
 
-#check persistance 1
+#check persistance 2
 
 exit 1

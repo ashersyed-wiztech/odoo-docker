@@ -1,4 +1,5 @@
-FROM debian:stretch
+FROM python:3.6-stretch
+#FROM debian:stretch
 LABEL maintainer="Odoo S.A. <info@odoo.com>"
 
 ARG ARTIFACTS_URL

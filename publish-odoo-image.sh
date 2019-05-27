@@ -12,7 +12,7 @@ ARTIFACTS_URL=${ARTIFACTS_URL}/artifacts/download
 pushd 12.0/
 
 docker build --build-arg ARTIFACTS_URL="$ARTIFACTS_URL" -t registry.cn-shanghai.aliyuncs.com/silu-design/odoo:12 .
-docker login --username=kevin_huan@kcre.com.cn --password k53085771 registry.cn-shanghai.aliyuncs.com
+docker login --username=$REGISTRYUSER --password $REGISTRYPASS registry.cn-shanghai.aliyuncs.com
 docker push registry.cn-shanghai.aliyuncs.com/silu-design/odoo:12
 
 popd

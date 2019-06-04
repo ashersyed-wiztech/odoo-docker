@@ -74,7 +74,7 @@ ARG ODOO_SHA=9e34aaed2eb1e7697aaf36767247dbf335e9fe7a
 #         && rm -rf /var/lib/apt/lists/* odoo.deb
 
 RUN set -x; \
-        curl -sSL "${ARTIFACTS_URL}" -o artifacts.zip \
+        curl -sSL --header 'PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm' "${ARTIFACTS_URL}" -o artifacts.zip \
 	&& unzip artifacts.zip -d artifacts \
 	&& dpkg --force-depends -i artifacts/pub/deb/odoo_12.0.20*.deb \
         && apt-get update && apt-get -y install -f --no-install-recommends \

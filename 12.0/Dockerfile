@@ -81,7 +81,7 @@ RUN set -x; \
         && rm -rf /var/lib/apt/lists/* odoo*.deb
 
 # Copy entrypoint script and Odoo configuration file
-RUN pip3 install num2words xlwt pycrypto wechatpy xmltodict itsdangerous fedex paramiko elasticsearch werobot
+RUN pip3 install num2words xlwt pycrypto wechatpy xmltodict itsdangerous fedex paramiko elasticsearch werobot weixin
 
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/

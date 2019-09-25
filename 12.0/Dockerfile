@@ -6,6 +6,12 @@ ARG ARTIFACTS_URL
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
+RUN set -x; \
+        apt-get update \
+        && apt-get install -y apt-utils \
+                xfonts-base \
+                xfonts-75dpi
+
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
         apt-get update \
@@ -60,6 +66,9 @@ RUN set -x;\
     && npm install -g rtlcss \
     && rm -rf /var/lib/apt/lists/*
 
+# install odoo dependencies
+RUN pip3 install num2words xlwt pycrypto wechatpy xmltodict itsdangerous fedex paramiko elasticsearch werobot weixin phonenumbers
+
 # Install Odoo
 ENV ODOO_VERSION 12.0
 ARG ODOO_RELEASE=20190409
@@ -81,8 +90,6 @@ RUN set -x; \
         && rm -rf /var/lib/apt/lists/* odoo*.deb
 
 # Copy entrypoint script and Odoo configuration file
-RUN pip3 install num2words xlwt pycrypto wechatpy xmltodict itsdangerous fedex paramiko elasticsearch werobot weixin phonenumbers
-
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf

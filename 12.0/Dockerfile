@@ -5,6 +5,8 @@ FROM ubuntu:18.04
 # LABEL maintainer="Odoo S.A. <info@odoo.com>"
 LABEL maintainer="Asher Syed <ashersyed@hotmail.com>"
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 ARG ARTIFACTS_URL
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
@@ -18,8 +20,7 @@ RUN set -x; \
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
         apt-get update \
-        # && apt-get install -y --no-install-recommends \
-        && apt-get install -y \
+        && apt-get install -y --no-install-recommends \
             ca-certificates \
             curl \
             dirmngr \
@@ -43,8 +44,7 @@ RUN set -x; \
         && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
         && echo 'f1689a1b302ff102160f2693129f789410a1708a wkhtmltox.deb' | sha1sum -c - \
         && dpkg --force-depends -i wkhtmltox.deb\
-        # && apt-get -y install -f --no-install-recommends \
-        && apt-get -y install -f \
+        && apt-get -y install -f --no-install-recommends \
         && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
@@ -83,9 +83,9 @@ RUN set -x;\
 RUN pip3 install num2words xlwt pycrypto wechatpy xmltodict itsdangerous fedex paramiko elasticsearch werobot weixin phonenumbers
 
 # Install Odoo
-ENV ODOO_VERSION 12.0
-ARG ODOO_RELEASE=20190409
-ARG ODOO_SHA=9e34aaed2eb1e7697aaf36767247dbf335e9fe7a
+# ENV ODOO_VERSION 12.0
+# ARG ODOO_RELEASE=20190409
+# ARG ODOO_SHA=9e34aaed2eb1e7697aaf36767247dbf335e9fe7a
 
 # RUN set -x; \
 #         curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \

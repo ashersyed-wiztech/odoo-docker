@@ -2,15 +2,15 @@
 
 set -x
 
-curl --header "PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm" 'http://172.19.53.32/api/v4/projects' -o projects.json
-curl --header "PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm" 'http://172.19.53.32/api/v4/projects/1/jobs?scope[]=success' -o jobs.json
+curl --header "PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm" 'http://47.102.156.191/api/v4/projects' -o projects.json
+curl --header "PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm" 'http://47.102.156.191/api/v4/projects/1/jobs?scope[]=success' -o jobs.json
 
 # ARTIFACTS_URL=$(cat jobs.json |  jq '.[1].web_url')
 # ARTIFACTS_URL=${ARTIFACTS_URL//\"/}
 # ARTIFACTS_URL=${ARTIFACTS_URL}/artifacts/download
 
 JOB_ID=$(cat jobs.json |  jq '.[1].id')
-ARTIFACTS_URL="http://172.19.53.32/api/v4/projects/1/jobs/${JOB_ID}/artifacts"
+ARTIFACTS_URL="http://47.102.156.191/api/v4/projects/1/jobs/${JOB_ID}/artifacts"
 
 pushd 12.0/
 

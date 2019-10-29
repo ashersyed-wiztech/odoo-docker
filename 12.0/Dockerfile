@@ -1,6 +1,9 @@
-FROM python:3.6-stretch
-#FROM debian:stretch
-LABEL maintainer="Odoo S.A. <info@odoo.com>"
+# FROM python:3.6-stretch
+# FROM debian:stretch
+FROM ubuntu:18.04
+
+# LABEL maintainer="Odoo S.A. <info@odoo.com>"
+LABEL maintainer="Asher Syed <ashersyed@hotmail.com>"
 
 ARG ARTIFACTS_URL
 # Generate locale C.UTF-8 for postgres and general locale data
@@ -23,6 +26,7 @@ RUN set -x; \
             gnupg \
             libssl1.0-dev \
             node-less \
+            python3 \
             python3-pip \
             python3-pyldap \
             python3-qrcode \
@@ -33,7 +37,8 @@ RUN set -x; \
             xz-utils \
             zip \
             unzip \
-        && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
+        # && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
+        && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
         && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
         && dpkg --force-depends -i wkhtmltox.deb\
         && apt-get -y install -f --no-install-recommends \
@@ -41,7 +46,8 @@ RUN set -x; \
 
 # install latest postgresql-client
 RUN set -x; \
-        echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > etc/apt/sources.list.d/pgdg.list \
+        # echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > etc/apt/sources.list.d/pgdg.list \
+        echo 'deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main' > etc/apt/sources.list.d/pgdg.list \
         && export GNUPGHOME="$(mktemp -d)" \
         && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
         && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
@@ -54,7 +60,8 @@ RUN set -x; \
 
 # Install rtlcss (on Debian stretch)
 RUN set -x;\
-    echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
+    # echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
+    echo "deb http://deb.nodesource.com/node_10.x bionic main" > /etc/apt/sources.list.d/nodesource.list \
     && export GNUPGHOME="$(mktemp -d)" \
     && repokey='9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280' \
     && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \

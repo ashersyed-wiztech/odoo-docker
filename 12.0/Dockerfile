@@ -1,6 +1,6 @@
-# FROM python:3.6-stretch
+FROM python:3.7.5-stretch
 # FROM debian:stretch
-FROM ubuntu:18.04
+# FROM ubuntu:18.04
 
 # LABEL maintainer="Odoo S.A. <info@odoo.com>"
 LABEL maintainer="Asher Syed <ashersyed@hotmail.com>"
@@ -39,18 +39,18 @@ RUN set -x; \
             xz-utils \
             zip \
             unzip \
-        # && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
-        # && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
-        && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
-        && echo 'f1689a1b302ff102160f2693129f789410a1708a wkhtmltox.deb' | sha1sum -c - \
+        && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
+        && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
+        # && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
+        # && echo 'f1689a1b302ff102160f2693129f789410a1708a wkhtmltox.deb' | sha1sum -c - \
         && dpkg --force-depends -i wkhtmltox.deb\
         && apt-get -y install -f --no-install-recommends \
         && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
 RUN set -x; \
-        # echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > etc/apt/sources.list.d/pgdg.list \
-        echo 'deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main' > etc/apt/sources.list.d/pgdg.list \
+        echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > etc/apt/sources.list.d/pgdg.list \
+        # echo 'deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main' > etc/apt/sources.list.d/pgdg.list \
         && export GNUPGHOME="$(mktemp -d)" \
         && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
         && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
@@ -63,8 +63,8 @@ RUN set -x; \
 
 # Install rtlcss (on Debian stretch)
 RUN set -x;\
-    # echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
-    echo "deb http://deb.nodesource.com/node_10.x bionic main" > /etc/apt/sources.list.d/nodesource.list \
+    echo "deb http://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
+    # echo "deb http://deb.nodesource.com/node_10.x bionic main" > /etc/apt/sources.list.d/nodesource.list \
     && export GNUPGHOME="$(mktemp -d)" \
     && repokey='9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280' \
     && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
@@ -99,8 +99,8 @@ RUN set -x; \
         curl -sSL --header 'PRIVATE-TOKEN: RRB-5Wesw99zMd3sjpxm' "${ARTIFACTS_URL}" -o artifacts.zip \
 	&& unzip artifacts.zip -d artifacts \
 	&& dpkg --force-depends -i artifacts/pub/deb/odoo_12.0.20*.deb \
-        # && apt-get update && apt-get -y install -f --no-install-recommends \
-        && apt-get update && apt-get -y install -f \
+        && apt-get update && apt-get -y install -f --no-install-recommends \
+        # && apt-get update && apt-get -y install -f \
         && rm -rf /var/lib/apt/lists/* odoo*.deb
 
 # Copy entrypoint script and Odoo configuration file

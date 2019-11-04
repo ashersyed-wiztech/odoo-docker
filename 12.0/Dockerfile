@@ -134,4 +134,4 @@ EXPOSE 8069 8071
 
 ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["odoo"]
-CMD ["/bin/bash", "-c", "odoo", "--database=${POSTGRESQL_DB}"]
+CMD ["/bin/bash", "-c", "odoo", "--db_host=${POSTGRESQL_HOST}", "--db_port=${POSTGRESQL_PORT_NUMBER}", "--db_user=${POSTGRESQL_USER}", "--db_password=${POSTGRESQL_PASSWORD}", "--database=${POSTGRESQL_DB}"]

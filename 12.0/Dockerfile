@@ -135,4 +135,4 @@ USER odoo
 EXPOSE 8069 8071
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["odoo"]
+CMD ["odoo", "--database=$POSTGRESQL_DB"]

@@ -2,6 +2,9 @@
 
 set -e
 
+sed -i "s|; db_name = |db_name = ${POSTGRESQL_DB}|g" /etc/odoo/odoo.conf
+sed -i "s|; list_db = False|list_db = False|g" /etc/odoo/odoo.conf
+
 # set the postgres database host, port, user and password according to the environment
 # and pass them as arguments to the odoo process if not present in the config file
 # : ${HOST:=${DB_PORT_5432_TCP_ADDR:='db'}}

@@ -25,7 +25,7 @@ check_config "db_host" "$POSTGRESQL_HOST"
 check_config "db_port" "$POSTGRESQL_PORT_NUMBER"
 check_config "db_user" "$POSTGRESQL_USER"
 check_config "db_password" "$POSTGRESQL_PASSWORD"
-check_config "db_name" "$POSTGRESQL_DB"
+check_config "database" "$POSTGRESQL_DB"
 
 case "$1" in
     -- | odoo)

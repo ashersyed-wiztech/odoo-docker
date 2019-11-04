@@ -114,8 +114,6 @@ RUN set -x; \
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 
-RUN useradd -ms /bin/bash odoo
-
 RUN chown odoo /etc/odoo/odoo.conf
 
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
@@ -135,4 +133,5 @@ USER odoo
 EXPOSE 8069 8071
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["odoo", "--database=$POSTGRESQL_DB"]
+# CMD ["odoo"]
+CMD ["/bin/bash", "-c", "odoo", "--database=${POSTGRESQL_DB}"]

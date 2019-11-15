@@ -12,5 +12,5 @@ job:
 trigger_build:
   stage: deploy
   script:
-    - curl -X POST -F token=2c6429b3995127e02910d5e9ffe399 -F "ref=master" -F "variables[DEPLOY_ODOO]=true" http://47.102.156.191/api/v4/projects/3/trigger/pipeline
-    - curl -X POST -F token=601fd655e03bb9cea5f6cb83589bf6 -F "ref=master" -F "variables[DEPLOY_ODOO_CLONE_1]=true" http://47.102.156.191/api/v4/projects/3/trigger/pipeline
+    # - curl -X POST -F token=2c6429b3995127e02910d5e9ffe399 -F "ref=master" -F "variables[DEPLOY_ODOO]=true" http://47.102.156.191/api/v4/projects/3/trigger/pipeline
+    # - curl -X POST -F token=601fd655e03bb9cea5f6cb83589bf6 -F "ref=master" -F "variables[DEPLOY_ODOO_CLONE_1]=true" http://47.102.156.191/api/v4/projects/3/trigger/pipeline
